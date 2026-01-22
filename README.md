@@ -1,4 +1,4 @@
-# 🏆 FRAI Evaluation Benchmark (State of the Art)
+# FRAI Evaluation Benchmark
 
 > The definitive open-source AI safety & compliance benchmark.
 
@@ -13,16 +13,21 @@ To become the go-to resource for evaluating LLMs on bias, safety, jailbreak resi
 
 ## Structure
 *   `tests/`: JSON-based test suites.
-*   `models/`: Model configurations and adapter definitions.
+*   `scripts/`: Python benchmark runner and validation tools.
 *   `results/`: Benchmark run outputs.
-*   `website/`: Source code for the leaderboard.
+*   `website/`: Next.js leaderboard application.
 
 ## Quick Start
 ```bash
-npm install
-npm run benchmark -- --model=gpt-4o --test=all
+# 1. Install dependencies
+pip install -r requirements.txt
+
+# 2. Validate test cases
+python scripts/validate_tests.py
+
+# 3. Run benchmark
+python scripts/run_benchmark.py
 ```
 
 ## License
 Apache 2.0
-# frai-benchmark

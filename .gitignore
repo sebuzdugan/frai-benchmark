@@ -1,6 +1,12 @@
-# Node
+# Generated Tests
+tests_pool/
+**/*_generated.json
+**/*_curated.json
+
+# Dependencies
 node_modules/
-.next/
+.pnp
+.pnp.jsext/
 out/
 build/
 dist/
@@ -27,3 +33,4 @@ results/
 # IDEs
 .vscode/
 .idea/
+benchmark_leaderboard.png

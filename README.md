@@ -11,6 +11,8 @@ To become the go-to resource for evaluating LLMs on bias, safety, jailbreak resi
 *   **Multi-dimensional Scoring**: Granular scores (e.g., Bias -> Gender/Race/Age).
 *   **Interactive Leaderboard**: Filter by category, compare models side-by-side, and track historical performance.
 
+<img width="961" height="721" alt="Screenshot 2026-02-04 at 21 04 20" src="https://github.com/user-attachments/assets/1dbfa90c-ed65-4fcd-b5b5-bd939d29614b" />
+
 ## Structure
 *   `tests/`: JSON-based test suites.
 *   `scripts/`: Python benchmark runner and validation tools.

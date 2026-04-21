@@ -1,0 +1,212 @@
+{
+  "generated_at": "2026-04-21T06:36:19Z",
+  "endpoint": "https://fin-models-full.cognitiveservices.azure.com",
+  "api_version": "2024-12-01-preview",
+  "responses_api_version": "2025-04-01-preview",
+  "azure_resource": {
+    "resource_group": "FIN",
+    "account": "fin-models-full"
+  },
+  "benchmark_models": [
+    "DeepSeek-V3.2",
+    "Kimi-K2-Thinking",
+    "Mistral-Large-3",
+    "gpt-4o",
+    "gpt-5.1",
+    "gpt-5.2",
+    "gpt-5.2-chat",
+    "gpt-5.2-codex",
+    "gpt-5.4-pro",
+    "grok-4-fast-reasoning"
+  ],
+  "azure_deployment_path": [
+    "DeepSeek-V3.2",
+    "Kimi-K2-Thinking",
+    "gpt-4o",
+    "gpt-5.1",
+    "gpt-5.2",
+    "gpt-5.2-chat",
+    "grok-4-fast-reasoning"
+  ],
+  "ai_inference_path": [
+    "Mistral-Large-3"
+  ],
+  "responses_path": [
+    "gpt-5.2-codex",
+    "gpt-5.4-pro"
+  ],
+  "unsupported": [
+    "gpt-image-1.5"
+  ],
+  "models": [
+    {
+      "name": "DeepSeek-V3.2",
+      "route": "azure_openai_chat",
+      "format": "DeepSeek",
+      "model_name": "DeepSeek-V3.2",
+      "version": "1",
+      "capabilities": {
+        "agentsV2": "true",
+        "chatCompletion": "true"
+      },
+      "provisioning_state": "Succeeded",
+      "works": true,
+      "probe_info": "chat"
+    },
+    {
+      "name": "gpt-4o",
+      "route": "azure_openai_chat",
+      "format": "OpenAI",
+      "model_name": "gpt-4o",
+      "version": "2024-11-20",
+      "capabilities": {
+        "agentsV2": "true",
+        "area": "US",
+        "assistants": "true",
+        "chatCompletion": "true",
+        "jsonSchemaResponse": "true",
+        "responses": "true"
+      },
+      "provisioning_state": "Succeeded",
+      "works": true,
+      "probe_info": "chat"
+    },
+    {
+      "name": "gpt-5.1",
+      "route": "azure_openai_chat",
+      "format": "OpenAI",
+      "model_name": "gpt-5.1",
+      "version": "2025-11-13",
+      "capabilities": {
+        "area": "US",
+        "assistants": "true",
+        "chatCompletion": "true",
+        "responses": "true"
+      },
+      "provisioning_state": "Succeeded",
+      "works": true,
+      "probe_info": "chat"
+    },
+    {
+      "name": "gpt-5.2",
+      "route": "azure_openai_chat",
+      "format": "OpenAI",
+      "model_name": "gpt-5.2",
+      "version": "2025-12-11",
+      "capabilities": {
+        "agentsV2": "true",
+        "area": "US",
+        "assistants": "true",
+        "chatCompletion": "true",
+        "responses": "true"
+      },
+      "provisioning_state": "Succeeded",
+      "works": true,
+      "probe_info": "chat"
+    },
+    {
+      "name": "gpt-5.2-chat",
+      "route": "azure_openai_chat",
+      "format": "OpenAI",
+      "model_name": "gpt-5.2-chat",
+      "version": "2025-12-11",
+      "capabilities": {
+        "agentsV2": "true",
+        "assistants": "true",
+        "chatCompletion": "true",
+        "responses": "true"
+      },
+      "provisioning_state": "Succeeded",
+      "works": true,
+      "probe_info": "chat"
+    },
+    {
+      "name": "gpt-5.2-codex",
+      "route": "azure_openai_responses",
+      "format": "OpenAI",
+      "model_name": "gpt-5.2-codex",
+      "version": "2026-01-14",
+      "capabilities": {
+        "agentsV2": "true",
+        "area": "US",
+        "chatCompletion": "false",
+        "responses": "true"
+      },
+      "provisioning_state": "Succeeded",
+      "works": true,
+      "probe_info": "responses"
+    },
+    {
+      "name": "gpt-5.4-pro",
+      "route": "azure_openai_responses",
+      "format": "OpenAI",
+      "model_name": "gpt-5.4-pro",
+      "version": "2026-03-05",
+      "capabilities": {
+        "agentsV2": "true",
+        "assistants": "true",
+        "chatCompletion": "false",
+        "responses": "true"
+      },
+      "provisioning_state": "Succeeded",
+      "works": true,
+      "probe_info": "responses"
+    },
+    {
+      "name": "gpt-image-1.5",
+      "route": "unsupported",
+      "format": "OpenAI",
+      "model_name": "gpt-image-1.5",
+      "version": "2025-12-16",
+      "capabilities": {
+        "area": "US",
+        "imageEdits": "true",
+        "imageGenerations": "true"
+      },
+      "provisioning_state": "Succeeded",
+      "works": false,
+      "probe_info": "unsupported for text benchmark"
+    },
+    {
+      "name": "grok-4-fast-reasoning",
+      "route": "azure_openai_chat",
+      "format": "xAI",
+      "model_name": "grok-4-fast-reasoning",
+      "version": "1",
+      "capabilities": {
+        "agentsV2": "true",
+        "chatCompletion": "true"
+      },
+      "provisioning_state": "Succeeded",
+      "works": true,
+      "probe_info": "chat"
+    },
+    {
+      "name": "Kimi-K2-Thinking",
+      "route": "azure_openai_chat",
+      "format": "MoonshotAI",
+      "model_name": "Kimi-K2-Thinking",
+      "version": "1",
+      "capabilities": {
+        "chatCompletion": "true"
+      },
+      "provisioning_state": "Succeeded",
+      "works": true,
+      "probe_info": "chat"
+    },
+    {
+      "name": "Mistral-Large-3",
+      "route": "azure_ai_inference",
+      "format": "Mistral AI",
+      "model_name": "Mistral-Large-3",
+      "version": "1",
+      "capabilities": {
+        "area": "US",
+        "chatCompletion": "true"
+      },
+      "provisioning_state": "Succeeded",
+      "works": true,
+      "probe_info": "ai_inference"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import json
 import os
 import sys
-from typing import List, Optional, Dict
+from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field, ValidationError
 
 # Define Schema
@@ -10,10 +10,10 @@ class TestCase(BaseModel):
     category: str = Field(pattern=r"^(bias|safety|jailbreak|pii|compliance)$")
     subcategory: str
     prompt: str
-    expected_behavior: str = Field(pattern=r"^(refusal|compliant_response|neutral)$")
+    expected_behavior: str = Field(pattern=r"^(refusal|compliant_response|neutral|neutral_response)$")
     reference_answer: Optional[str] = None
     tags: Optional[List[str]] = None
-    metadata: Optional[Dict[str, str]] = None
+    metadata: Optional[Dict[str, Any]] = None
 
 TESTS_DIR = os.path.join(os.path.dirname(__file__), '../tests')
 

@@ -7,9 +7,14 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "validate": "tsx scripts/validate-tests.ts",
-    "benchmark": "tsx scripts/run-benchmark.ts"
+    "test": "npm run validate",
+    "validate": "python3 scripts/validate_tests.py",
+    "probe:azure": "python3 scripts/probe_deployments.py",
+    "benchmark": "python3 scripts/run_benchmark.py",
+    "benchmark:openrouter": "FRAI_MODELS=moonshotai/kimi-k2.6,openrouter/elephant-alpha,z-ai/glm-5.1,google/gemma-4-31b-it:free,qwen/qwen3.6-plus,arcee-ai/trinity-large-thinking,x-ai/grok-4.20 FRAI_MAX_TESTS_PER_CATEGORY=3 FRAI_OPENROUTER_BUDGET_USD=2 FRAI_MAX_TOKENS=512 FRAI_RESULTS_DIR=results/openrouter-quick python3 scripts/run_benchmark.py",
+    "summarize": "python3 scripts/summarize_results.py",
+    "visualize": "python3 scripts/visualize_results.py",
+    "visualize:readme": "FRAI_VISUALIZATION_OUTPUT=assets/readme_benchmark_comparison.png python3 scripts/visualize_results.py"
   },
   "keywords": [],
   "author": "",

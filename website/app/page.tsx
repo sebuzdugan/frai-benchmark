@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, LabelList } from 'recharts';
-import { motion } from 'framer-motion';
-import { Trophy, Shield, Activity, Zap, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Activity, BarChart3, Gauge, ShieldCheck, Timer, Trophy, Zap } from 'lucide-react';
 
 type Result = {
   model: string;
@@ -12,166 +10,239 @@ type Result = {
   test_id: string;
   prompt: string;
   response: string;
+  passed?: boolean;
+  latency_ms?: number;
 };
 
 type AggregatedResult = {
   model: string;
   avgScore: number;
   passRate: number;
+  resultCount: number;
+  avgLatency: number;
   categories: { [key: string]: number };
 };
 
-const COLORS = ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444'];
+const CATEGORY_ORDER = ['bias', 'compliance', 'jailbreak', 'pii', 'safety'];
+const MODEL_COLORS = ['#126b45', '#d79b21', '#256d85', '#a34b32', '#5b616e', '#7a5c96', '#2e7d32'];
+
+function formatModelName(model: string) {
+  return model
+    .replace('google/', '')
+    .replace('openrouter/', '')
+    .replace('moonshotai/', '')
+    .replace('arcee-ai/', '')
+    .replace('x-ai/', '')
+    .replace('z-ai/', '')
+    .replace(':free', ' free');
+}
+
+function scoreClass(score: number) {
+  if (score >= 8.5) return 'bg-[#0f6b43] text-white';
+  if (score >= 7) return 'bg-[#b7d36b] text-[#1a210f]';
+  if (score >= 5) return 'bg-[#f0bf58] text-[#261b05]';
+  return 'bg-[#c84630] text-white';
+}
 
 export default function Home() {
   const [data, setData] = useState<AggregatedResult[]>([]);
-  const [rawData, setRawData] = useState<Result[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch('/results.json')
       .then(res => res.json())
       .then((json: Result[]) => {
-        setRawData(json);
-
-        // Aggregate Data
         const models = Array.from(new Set(json.map(r => r.model)));
         const aggregated = models.map(model => {
           const modelResults = json.filter(r => r.model === model);
           const avgScore = modelResults.reduce((acc, r) => acc + (r.score || 0), 0) / modelResults.length;
-          const passedCount = modelResults.filter(r => (r.score || 0) >= 7).length;
+          const passedCount = modelResults.filter(r => r.passed ?? (r.score || 0) >= 7).length;
           const passRate = (passedCount / modelResults.length) * 100;
+          const avgLatency = modelResults.reduce((acc, r) => acc + (r.latency_ms || 0), 0) / modelResults.length;
 
-          // Category Pass Scores
-          const categories = Array.from(new Set(modelResults.map(r => r.category)));
           const catScores: { [key: string]: number } = {};
-          categories.forEach(cat => {
+          CATEGORY_ORDER.forEach(cat => {
             const catResults = modelResults.filter(r => r.category === cat);
-            catScores[cat] = catResults.reduce((acc, r) => acc + (r.score || 0), 0) / catResults.length;
+            catScores[cat] = catResults.length
+              ? catResults.reduce((acc, r) => acc + (r.score || 0), 0) / catResults.length
+              : 0;
           });
 
-          return { model, avgScore, passRate, categories: catScores };
+          return { model, avgScore, passRate, resultCount: modelResults.length, avgLatency, categories: catScores };
         });
 
-        // Sort by Score
         setData(aggregated.sort((a, b) => b.avgScore - a.avgScore));
         setLoading(false);
       });
   }, []);
 
-  if (loading) return <div className="min-h-screen bg-black text-white flex items-center justify-center">Loading Data...</div>;
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#f5f6f1] text-[#141712] flex items-center justify-center">
+        <div className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.18em]">
+          <Activity className="animate-pulse text-[#126b45]" size={18} />
+          Loading FRAI Results
+        </div>
+      </div>
+    );
+  }
+
+  const leader = data[0];
+  const totalResults = data.reduce((acc, model) => acc + model.resultCount, 0);
+  const benchmarkAverage = data.reduce((acc, model) => acc + model.avgScore, 0) / data.length;
+  const fastest = data.reduce((best, model) => model.avgLatency < best.avgLatency ? model : best, data[0]);
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-white p-8 font-sans selection:bg-purple-500 selection:text-white">
-      <div className="max-w-5xl mx-auto space-y-12">
-
-        {/* Header */}
-        <header className="text-center space-y-4 pt-8">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-sm font-medium"
-          >
-            <Zap size={16} /> Live Benchmark Results v1.0
-          </motion.div>
-          <h1 className="text-6xl font-extrabold tracking-tight bg-gradient-to-r from-white via-gray-200 to-gray-500 bg-clip-text text-transparent">
-            LLM Safety Leaderboard
-          </h1>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            Evaluating SOTA models on bias, safety protocols, and regulatory compliance.
-            <br />
-            <span className="text-gray-600 text-sm">Powered by FRAI Engines</span>
-          </p>
+    <main className="min-h-screen bg-[#f4f6f1] text-[#141712] font-sans selection:bg-[#b7d36b] selection:text-[#141712]">
+      <div className="mx-auto flex min-h-screen max-w-7xl flex-col px-6 py-5">
+        <header className="flex items-center justify-between border-b border-[#d6dccf] pb-4">
+          <div className="flex items-center gap-3">
+            <div className="grid size-10 place-items-center rounded-lg bg-[#141712] text-white shadow-sm">
+              <ShieldCheck size={21} />
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#5c6659]">FRAI Benchmark</p>
+              <p className="text-sm font-semibold text-[#141712]">OpenRouter Safety Run</p>
+            </div>
+          </div>
+          <div className="hidden items-center gap-2 md:flex">
+            {CATEGORY_ORDER.map(category => (
+              <span key={category} className="rounded-lg border border-[#d6dccf] bg-white px-3 py-2 text-xs font-bold uppercase tracking-[0.13em] text-[#4f5a4c] shadow-sm">
+                {category}
+              </span>
+            ))}
+          </div>
         </header>
 
-        {/* Top Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {data.slice(0, 3).map((model, idx) => (
-            <motion.div
-              key={model.model}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
-              className={`relative overflow-hidden p-6 rounded-2xl border ${idx === 0 ? 'border-yellow-500/50 bg-yellow-500/5 shadow-[0_0_40px_-10px_rgba(234,179,8,0.3)]' : 'border-gray-800 bg-gray-900/50'}`}
-            >
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <div className="text-gray-400 text-xs font-bold uppercase tracking-widest">{idx === 0 ? 'Champion' : `#${idx + 1} Ranked`}</div>
-                  <h3 className="text-2xl font-bold mt-1 text-white">{model.model}</h3>
+        <section className="grid flex-1 grid-cols-1 gap-6 py-6 lg:grid-cols-[1.02fr_1.35fr]">
+          <div className="flex flex-col justify-between gap-6">
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-2 rounded-lg border border-[#c9d5bd] bg-white px-3 py-2 text-sm font-bold text-[#126b45] shadow-sm">
+                <Zap size={16} />
+                Budget-capped competitive run
+              </div>
+              <div>
+                <h1 className="max-w-xl text-5xl font-black leading-[0.95] tracking-normal text-[#141712] md:text-6xl">
+                  Safety leaderboard for modern LLMs.
+                </h1>
+                <p className="mt-5 max-w-lg text-lg leading-8 text-[#526050]">
+                  A compact FRAI dashboard comparing refusal quality, PII handling, bias controls, compliance, and jailbreak resilience across current OpenRouter models.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="rounded-lg border border-[#d6dccf] bg-white p-4 shadow-sm">
+                <div className="flex items-center justify-between text-[#5c6659]">
+                  <span className="text-xs font-bold uppercase tracking-[0.15em]">Models</span>
+                  <BarChart3 size={17} />
                 </div>
-                {idx === 0 && <Trophy className="text-yellow-500" size={24} />}
-                {idx === 1 && <Shield className="text-gray-400" size={24} />}
-                {idx === 2 && <Activity className="text-orange-400" size={24} />}
+                <div className="mt-4 text-4xl font-black">{data.length}</div>
               </div>
-
-              <div className="flex items-end gap-2">
-                <span className="text-4xl font-mono font-bold">{model.avgScore.toFixed(2)}</span>
-                <span className="text-sm text-gray-500 mb-1">/ 10.0</span>
-              </div>
-
-              <div className="mt-4 flex gap-2">
-                <div className={`px-2 py-1 rounded text-xs font-bold ${model.passRate > 80 ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
-                  {model.passRate.toFixed(1)}% Pass Rate
+              <div className="rounded-lg border border-[#d6dccf] bg-white p-4 shadow-sm">
+                <div className="flex items-center justify-between text-[#5c6659]">
+                  <span className="text-xs font-bold uppercase tracking-[0.15em]">Results</span>
+                  <Activity size={17} />
                 </div>
+                <div className="mt-4 text-4xl font-black">{totalResults}</div>
               </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Main Chart */}
-        <section className="bg-gray-900/30 border border-gray-800 rounded-3xl p-8 backdrop-blur-sm">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold flex items-center gap-2">
-              <Activity className="text-blue-500" /> Performance Comparison
-            </h2>
-            <div className="text-sm text-gray-500">Ranked by Average Safety Score</div>
+              <div className="rounded-lg border border-[#d6dccf] bg-white p-4 shadow-sm">
+                <div className="flex items-center justify-between text-[#5c6659]">
+                  <span className="text-xs font-bold uppercase tracking-[0.15em]">Average</span>
+                  <Gauge size={17} />
+                </div>
+                <div className="mt-4 text-4xl font-black">{benchmarkAverage.toFixed(1)}</div>
+              </div>
+              <div className="rounded-lg border border-[#d6dccf] bg-white p-4 shadow-sm">
+                <div className="flex items-center justify-between text-[#5c6659]">
+                  <span className="text-xs font-bold uppercase tracking-[0.15em]">Fastest</span>
+                  <Timer size={17} />
+                </div>
+                <div className="mt-4 text-xl font-black leading-tight">{formatModelName(fastest.model)}</div>
+              </div>
+            </div>
           </div>
 
-          <div className="h-[400px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={data} layout="vertical" margin={{ left: 20, right: 20, top: 0, bottom: 0 }}>
-                <XAxis type="number" domain={[0, 10]} hide />
-                <YAxis dataKey="model" type="category" width={150} tick={{ fill: '#9ca3af', fontSize: 14 }} axisLine={false} tickLine={false} />
-                <Tooltip
-                  contentStyle={{ backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px' }}
-                  itemStyle={{ color: '#fff' }}
-                />
-                <Bar dataKey="avgScore" barSize={32} radius={[0, 4, 4, 0]}>
-                  {data.map((entry, index) => {
-                    const name = entry.model.toLowerCase();
-                    let color = '#3b82f6'; // Default Blue
+          <div className="grid gap-4">
+            <section className="rounded-lg border border-[#1e271d] bg-[#141712] p-5 text-white shadow-xl">
+              <div className="mb-5 flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#b7d36b]">Top performer</p>
+                  <h2 className="mt-2 text-3xl font-black tracking-normal">{formatModelName(leader.model)}</h2>
+                </div>
+                <div className="grid size-12 place-items-center rounded-lg bg-[#d79b21] text-[#141712]">
+                  <Trophy size={24} />
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-3">
+                <div className="rounded-lg bg-white/8 p-4">
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#c8d2c3]">Score</p>
+                  <p className="mt-3 text-4xl font-black">{leader.avgScore.toFixed(2)}</p>
+                </div>
+                <div className="rounded-lg bg-white/8 p-4">
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#c8d2c3]">Pass Rate</p>
+                  <p className="mt-3 text-4xl font-black">{leader.passRate.toFixed(0)}%</p>
+                </div>
+                <div className="rounded-lg bg-white/8 p-4">
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#c8d2c3]">Rows</p>
+                  <p className="mt-3 text-4xl font-black">{leader.resultCount}</p>
+                </div>
+              </div>
+            </section>
 
-                    if (name.includes('gpt')) color = '#10b981';      // Emerald
-                    else if (name.includes('deepseek')) color = '#8b5cf6'; // Violet
-                    else if (name.includes('grok')) color = '#f59e0b';     // Amber
-                    else if (name.includes('kimi')) color = '#ec4899';     // Pink
-                    else if (name.includes('mistral')) color = '#f97316';  // Orange
+            <section className="rounded-lg border border-[#d6dccf] bg-white p-5 shadow-sm">
+              <div className="mb-4 flex items-center justify-between">
+                <h2 className="flex items-center gap-2 text-xl font-black">
+                  <Activity className="text-[#126b45]" size={21} />
+                  Model Scoreboard
+                </h2>
+                <span className="rounded-lg bg-[#eef2e7] px-3 py-2 text-xs font-bold uppercase tracking-[0.14em] text-[#526050]">
+                  Score / 10
+                </span>
+              </div>
 
-                    return <Cell key={`cell-${index}`} fill={color} />;
-                  })}
-                  <LabelList
-                    dataKey="avgScore"
-                    position="insideRight"
-                    formatter={(val: number) => `${((val / 10) * 100).toFixed(0)}%`}
-                    style={{ fill: '#fff', fontSize: '13px', fontWeight: 'bold', textShadow: '0px 1px 2px rgba(0,0,0,0.5)' }}
-                    offset={10}
-                  />
-                  {/* Label on top */}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+              <div className="grid gap-3">
+                {data.map((entry, index) => (
+                  <div key={entry.model} className="grid grid-cols-[178px_1fr_52px] items-center gap-3">
+                    <div className="truncate text-sm font-black text-[#263024]" title={entry.model}>
+                      {formatModelName(entry.model)}
+                    </div>
+                    <div className="h-9 overflow-hidden rounded-lg bg-[#eef2e7]">
+                      <div
+                        className="flex h-full items-center justify-end rounded-lg pr-3 text-sm font-black text-white shadow-sm"
+                        style={{
+                          width: `${Math.max(entry.avgScore * 10, 6)}%`,
+                          backgroundColor: MODEL_COLORS[index % MODEL_COLORS.length],
+                        }}
+                      >
+                        {entry.avgScore.toFixed(1)}
+                      </div>
+                    </div>
+                    <div className="text-right text-sm font-black text-[#526050]">{entry.passRate.toFixed(0)}%</div>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
         </section>
 
-        {/* Detailed Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Render category heatmaps or specifics later */}
-        </div>
-
-        <footer className="text-center text-gray-600 text-sm py-8">
-          Generated with FRAI Benchmark Engine • {new Date().toLocaleDateString()}
-        </footer>
-
+        <section className="grid grid-cols-1 gap-3 border-t border-[#d6dccf] pt-5 md:grid-cols-7">
+          {data.map(model => (
+            <div key={model.model} className="rounded-lg border border-[#d6dccf] bg-white p-3 shadow-sm">
+              <div className="mb-3 min-h-10 text-sm font-black leading-tight">{formatModelName(model.model)}</div>
+              <div className="space-y-2">
+                {CATEGORY_ORDER.map(category => (
+                  <div key={category} className="flex items-center justify-between gap-2">
+                    <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#647060]">{category.slice(0, 4)}</span>
+                    <span className={`min-w-10 rounded-md px-2 py-1 text-center text-xs font-black ${scoreClass(model.categories[category])}`}>
+                      {model.categories[category] ? model.categories[category].toFixed(1) : '-'}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </section>
       </div>
     </main>
   );

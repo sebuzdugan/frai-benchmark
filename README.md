@@ -12,7 +12,7 @@ To become the go-to resource for evaluating LLMs on bias, safety, jailbreak resi
 *   **Multi-dimensional scoring**: Granular category and subcategory scores with judge reasoning and latency.
 *   **Interactive leaderboard**: Filter by category, compare models side-by-side, and track historical performance.
 
-![FRAI benchmark comparison](assets/readme_benchmark_comparison.png)
+![FRAI benchmark dashboard](assets/readme_app_screenshot.png)
 
 ## Structure
 *   `tests/`: JSON-based test suites.

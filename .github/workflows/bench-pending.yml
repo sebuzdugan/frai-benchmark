@@ -1,0 +1,168 @@
+name: Benchmark Pending Models (bulk)
+
+on:
+  workflow_dispatch:
+    inputs:
+      models:
+        description: "Comma-separated model IDs. Leave blank to auto-detect all pending OpenRouter models from models/openrouter/*.yaml."
+        required: false
+        default: ""
+      max_tests_per_category:
+        description: "Tests per category per model (5 categories total). Default 3 → 15 tests/model."
+        required: false
+        default: "3"
+      budget_per_model_usd:
+        description: "Per-model OpenRouter budget cap (USD)."
+        required: false
+        default: "0.5"
+      judges:
+        description: "Comma-separated OpenRouter-routable judge model ids."
+        required: false
+        default: "anthropic/claude-sonnet-4.6,openai/gpt-5.2,deepseek/deepseek-chat"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bench-pending
+  cancel-in-progress: false
+
+jobs:
+  bulk-bench:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      FRAI_JUDGE_MODELS: ${{ inputs.judges }}
+      FRAI_MAX_TESTS_PER_CATEGORY: ${{ inputs.max_tests_per_category }}
+      FRAI_OPENROUTER_BUDGET_USD: ${{ inputs.budget_per_model_usd }}
+      FRAI_MAX_TOKENS: "512"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Validate model configs
+        run: python scripts/validate_models.py
+
+      - name: Resolve pending model list
+        id: list
+        run: |
+          python - <<'PY' > /tmp/pending.txt
+          import json, os, sys
+          sys.path.insert(0, "scripts")
+          from community_models import registry_entries
+
+          inputs_raw = os.environ.get("INPUT_MODELS", "").strip()
+          if inputs_raw:
+              models = [m.strip() for m in inputs_raw.split(",") if m.strip()]
+          else:
+              registry = registry_entries(include_premium=False)
+              or_models = [m["name"] for m in registry if m.get("route") == "openrouter_chat"]
+
+              benchmarked = set()
+              comp = "results/latest/comparison.json"
+              if os.path.exists(comp):
+                  with open(comp) as f:
+                      for row in json.load(f):
+                          if row.get("model"):
+                              benchmarked.add(row["model"])
+
+              subs_dir = "results/submissions"
+              if os.path.isdir(subs_dir):
+                  for fn in os.listdir(subs_dir):
+                      if not fn.endswith(".json"):
+                          continue
+                      with open(os.path.join(subs_dir, fn)) as f:
+                          try:
+                              for row in json.load(f):
+                                  if row.get("model"):
+                                      benchmarked.add(row["model"])
+                          except json.JSONDecodeError:
+                              pass
+
+              models = [m for m in or_models if m not in benchmarked]
+
+          print("Pending models:", len(models), file=sys.stderr)
+          for m in models:
+              print(m)
+          PY
+          echo "models<<EOF" >> $GITHUB_OUTPUT
+          cat /tmp/pending.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          echo "count=$(wc -l < /tmp/pending.txt | tr -d ' ')" >> $GITHUB_OUTPUT
+        env:
+          INPUT_MODELS: ${{ inputs.models }}
+
+      - name: Run benchmarks sequentially
+        if: steps.list.outputs.count != '0'
+        run: |
+          set -eu
+          mkdir -p results/submissions
+          attempted=0
+          succeeded=0
+          failed_models=""
+          while IFS= read -r model_id; do
+            [ -z "$model_id" ] && continue
+            attempted=$((attempted + 1))
+            slug=$(echo "$model_id" | tr '/' '-' | tr '[:upper:]' '[:lower:]' | tr ':' '-')
+            out_dir="results/tmp-$slug"
+            echo ""
+            echo "=============================================================="
+            echo "[$attempted] Benchmarking: $model_id"
+            echo "=============================================================="
+
+            set +e
+            FRAI_MODELS="$model_id" FRAI_RESULTS_DIR="$out_dir" \
+              python scripts/run_benchmark.py
+            rc=$?
+            set -e
+
+            if [ $rc -eq 0 ] && [ -f "$out_dir/comparison.json" ]; then
+              cp "$out_dir/comparison.json" "results/submissions/$slug.json"
+              succeeded=$((succeeded + 1))
+              echo "✓ $model_id → results/submissions/$slug.json"
+            else
+              failed_models="$failed_models $model_id"
+              echo "✗ $model_id (rc=$rc)"
+            fi
+            rm -rf "$out_dir"
+          done < /tmp/pending.txt
+          echo ""
+          echo "=== DONE: $succeeded/$attempted succeeded ==="
+          [ -n "$failed_models" ] && echo "Failed:$failed_models" || true
+
+      - name: Commit submissions
+        if: steps.list.outputs.count != '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet --exit-code results/submissions 2>/dev/null && [ -z "$(git status --porcelain results/submissions)" ]; then
+            echo "No new submission files — nothing to commit."
+            exit 0
+          fi
+          git add results/submissions
+          count=$(git diff --cached --name-only -- results/submissions | wc -l | tr -d ' ')
+          git commit -m "bench: add submission results for $count model(s)
+
+          Ran via bench-pending workflow with:
+            max_tests_per_category=${FRAI_MAX_TESTS_PER_CATEGORY}
+            budget=${FRAI_OPENROUTER_BUDGET_USD} USD/model
+            judges=${FRAI_JUDGE_MODELS}
+
+          Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+          git push
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bench-pending-${{ github.run_id }}
+          path: results/submissions/
+          if-no-files-found: ignore

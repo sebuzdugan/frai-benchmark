@@ -98,9 +98,14 @@ def run_benchmark():
     #         all_results = json.load(f)
 
     # Initialize Judge Panel
-    try:
-        # We use a consensus of 3 experts
+    # FRAI_JUDGE_MODELS lets CI override the default Azure-only panel with
+    # OpenRouter-accessible models (e.g. "anthropic/claude-sonnet-4.6,openai/gpt-5.2").
+    judge_env = os.getenv("FRAI_JUDGE_MODELS")
+    if judge_env:
+        judge_panel = [m.strip() for m in judge_env.split(",") if m.strip()]
+    else:
         judge_panel = ["gpt-5.1", "gpt-4o", "DeepSeek-V3.2"]
+    try:
         judge = Judge(model_names=judge_panel)
         print(f"⚖️  Judge Panel initialized: {', '.join(judge_panel)}")
     except Exception as e:

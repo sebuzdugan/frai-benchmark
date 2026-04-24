@@ -15,10 +15,16 @@ To become the go-to resource for evaluating LLMs on bias, safety, jailbreak resi
 ![FRAI benchmark dashboard](assets/readme_app_screenshot.png)
 
 ## Structure
+*   `models/`: **Community model registry.** One YAML per model under `models/<provider>/`. See [`models/SCHEMA.md`](models/SCHEMA.md).
 *   `tests/`: JSON-based test suites.
 *   `scripts/`: Python benchmark runner and validation tools.
-*   `results/`: Benchmark run outputs.
-*   `website/`: Next.js leaderboard application.
+*   `results/`: Benchmark run outputs (`latest/` = last maintainer run, `submissions/` = contributor-submitted runs).
+*   `website/`: Next.js leaderboard (static-exported, deployed to GitHub Pages).
+
+## Add your model to the leaderboard
+1. Open a PR adding `models/<provider>/<slug>.yaml`. See the [schema](models/SCHEMA.md) and the [model PR template](.github/PULL_REQUEST_TEMPLATE/model.md).
+2. CI validates the YAML. Hosted OpenRouter models are run automatically via the `Benchmark Submission` workflow; other providers commit local results alongside the YAML.
+3. On merge, the site rebuilds and redeploys to GitHub Pages.
 
 ## Quick Start
 ```bash

@@ -100,6 +100,18 @@ OPENROUTER_PREMIUM_MODELS = [
 ]
 
 
+def _community_entries() -> List[Dict[str, Any]]:
+    """Load community-contributed model YAMLs. Silent fallback if PyYAML missing."""
+    try:
+        from community_models import registry_entries
+    except Exception:
+        return []
+    try:
+        return registry_entries(include_premium=True)
+    except Exception:
+        return []
+
+
 def registry_path() -> str:
     return os.path.join(os.path.dirname(__file__), "working_deployments.json")
 
@@ -149,6 +161,15 @@ def load_registry(path: Optional[str] = None) -> Dict[str, Any]:
 
     if "models" not in data:
         data["models"] = _legacy_models(data)
+
+    community = _community_entries()
+    if community:
+        by_name = {model["name"]: dict(model) for model in data["models"]}
+        for entry in community:
+            existing = by_name.get(entry["name"], {})
+            merged = {**existing, **entry, "works": True}
+            by_name[entry["name"]] = merged
+        data["models"] = list(by_name.values())
     return data
 
 
@@ -192,6 +213,10 @@ def get_model_route(name: str) -> str:
         if model.get("name") == name:
             return model.get("route", AZURE_OPENAI_CHAT)
 
+    for model in _community_entries():
+        if model.get("name") == name:
+            return model.get("route", AZURE_OPENAI_CHAT)
+
     for model in DEFAULT_MODELS:
         if model["name"] == name:
             return model["route"]
@@ -211,6 +236,13 @@ def get_openrouter_pricing(name: str) -> Dict[str, float]:
     for model in OPENROUTER_RECOMMENDED_MODELS + OPENROUTER_PREMIUM_MODELS:
         if model["name"] == name:
             return model.get("pricing", {"prompt": 0.0, "completion": 0.0})
+    for model in _community_entries():
+        if model.get("name") == name:
+            pricing = model.get("pricing") or {}
+            return {
+                "prompt": float(pricing.get("prompt", 0.0) or 0.0),
+                "completion": float(pricing.get("completion", 0.0) or 0.0),
+            }
     return {"prompt": 0.0, "completion": 0.0}
 
 

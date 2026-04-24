@@ -1,0 +1,11 @@
+id: z-ai/glm-5.1
+display_name: GLM 5.1
+provider: openrouter
+route: openrouter_chat
+pricing:
+  prompt: 0.000000698
+  completion: 0.0000044
+tags: [agentic, coding]
+notes: Recent agentic/coding model.
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

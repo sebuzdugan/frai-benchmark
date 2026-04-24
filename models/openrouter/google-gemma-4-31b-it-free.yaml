@@ -1,0 +1,11 @@
+id: google/gemma-4-31b-it:free
+display_name: Gemma 4 31B (free)
+provider: openrouter
+route: openrouter_chat
+pricing:
+  prompt: 0.0
+  completion: 0.0
+tags: [free, open-weights]
+notes: Free recent Gemma model.
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

@@ -1,0 +1,8 @@
+id: gpt-4o
+display_name: GPT-4o
+provider: azure
+route: azure_openai_chat
+env_keys: [AZURE_OPENAI_API_KEY, AZURE_OPENAI_ENDPOINT]
+tags: [multimodal]
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

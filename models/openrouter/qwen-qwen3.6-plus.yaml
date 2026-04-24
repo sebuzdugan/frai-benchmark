@@ -1,0 +1,11 @@
+id: qwen/qwen3.6-plus
+display_name: Qwen 3.6 Plus
+provider: openrouter
+route: openrouter_chat
+pricing:
+  prompt: 0.000000325
+  completion: 0.00000195
+tags: [low-cost]
+notes: Recent low-cost Qwen model.
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

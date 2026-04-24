@@ -1,0 +1,8 @@
+id: DeepSeek-V3.2
+display_name: DeepSeek V3.2
+provider: azure
+route: azure_openai_chat
+env_keys: [AZURE_OPENAI_API_KEY, AZURE_OPENAI_ENDPOINT]
+tags: [open-weights, reasoning]
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

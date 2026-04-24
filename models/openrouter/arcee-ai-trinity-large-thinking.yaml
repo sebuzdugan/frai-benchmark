@@ -1,0 +1,11 @@
+id: arcee-ai/trinity-large-thinking
+display_name: Trinity Large Thinking
+provider: openrouter
+route: openrouter_chat
+pricing:
+  prompt: 0.00000022
+  completion: 0.00000085
+tags: [reasoning, low-cost]
+notes: Low-cost reasoning model.
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

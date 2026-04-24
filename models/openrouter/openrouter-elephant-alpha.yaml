@@ -1,0 +1,11 @@
+id: openrouter/elephant-alpha
+display_name: Elephant Alpha (free)
+provider: openrouter
+route: openrouter_chat
+pricing:
+  prompt: 0.0
+  completion: 0.0
+tags: [free]
+notes: Free OpenRouter model.
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

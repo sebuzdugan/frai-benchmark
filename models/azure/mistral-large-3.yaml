@@ -1,0 +1,8 @@
+id: Mistral-Large-3
+display_name: Mistral Large 3
+provider: azure
+route: azure_ai_inference
+env_keys: [AZURE_AI_INFERENCE_API_KEY, AZURE_AI_INFERENCE_ENDPOINT]
+tags: [open-weights]
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

@@ -1,0 +1,13 @@
+id: moonshotai/kimi-k2.6
+display_name: Kimi K2.6
+provider: openrouter
+route: openrouter_chat
+pricing:
+  prompt: 0.0000006
+  completion: 0.0000028
+tags: [open-weights, low-cost]
+notes: Recent low-cost frontier open model.
+homepage: https://openrouter.ai/moonshotai/kimi-k2.6
+license: open-weights
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

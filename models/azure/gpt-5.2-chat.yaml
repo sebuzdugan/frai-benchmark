@@ -1,0 +1,8 @@
+id: gpt-5.2-chat
+display_name: GPT-5.2 Chat
+provider: azure
+route: azure_openai_chat
+env_keys: [AZURE_OPENAI_API_KEY, AZURE_OPENAI_ENDPOINT]
+tags: [chat]
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

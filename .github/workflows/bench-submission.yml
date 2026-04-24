@@ -1,0 +1,67 @@
+name: Benchmark Submission (hosted OpenRouter)
+
+on:
+  workflow_dispatch:
+    inputs:
+      model_id:
+        description: "Model id to run (must match a models/openrouter/*.yaml)"
+        required: true
+        type: string
+      max_tests_per_category:
+        description: "Smoke cap per category (0 = full run)"
+        required: false
+        default: "3"
+      budget_usd:
+        description: "OpenRouter budget cap (USD)"
+        required: false
+        default: "2"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      FRAI_MODELS: ${{ inputs.model_id }}
+      FRAI_MAX_TESTS_PER_CATEGORY: ${{ inputs.max_tests_per_category }}
+      FRAI_OPENROUTER_BUDGET_USD: ${{ inputs.budget_usd }}
+      FRAI_MAX_TOKENS: "512"
+      FRAI_RESULTS_DIR: results/submissions-ci
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Validate model configs
+        run: python scripts/validate_models.py
+      - name: Confirm requested model is registered
+        run: |
+          python - <<'PY'
+          import os, sys
+          sys.path.insert(0, "scripts")
+          from community_models import registry_entries
+          target = os.environ["FRAI_MODELS"].strip()
+          ids = {m["name"] for m in registry_entries(include_premium=True)}
+          if target not in ids:
+              raise SystemExit(f"Unknown model '{target}'. Add a YAML under models/<provider>/*.yaml first.")
+          print(f"ok: {target} is registered")
+          PY
+      - name: Run benchmark
+        run: python scripts/run_benchmark.py
+      - name: Collect submission artefact
+        run: |
+          mkdir -p results/submissions
+          slug=$(echo "${{ inputs.model_id }}" | tr '/' '-' | tr '[:upper:]' '[:lower:]')
+          cp results/submissions-ci/comparison.json "results/submissions/${slug}.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: submission-${{ inputs.model_id }}
+          path: results/submissions/

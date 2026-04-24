@@ -1,0 +1,14 @@
+id: anthropic/claude-opus-4.7
+display_name: Claude Opus 4.7
+provider: openrouter
+route: openrouter_chat
+pricing:
+  prompt: 0.000005
+  completion: 0.000025
+tags: [premium, reasoning]
+notes: Premium frontier model; excluded from default budget-capped runs.
+homepage: https://www.anthropic.com
+license: proprietary
+premium: true
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

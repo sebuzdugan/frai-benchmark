@@ -1,0 +1,9 @@
+id: gpt-5.4-pro
+display_name: GPT-5.4 Pro
+provider: azure
+route: azure_openai_responses
+env_keys: [AZURE_OPENAI_API_KEY, AZURE_OPENAI_ENDPOINT]
+tags: [reasoning, frontier]
+notes: Azure OpenAI Responses deployment.
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

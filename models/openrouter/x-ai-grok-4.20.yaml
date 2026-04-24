@@ -1,0 +1,11 @@
+id: x-ai/grok-4.20
+display_name: Grok 4.20
+provider: openrouter
+route: openrouter_chat
+pricing:
+  prompt: 0.000002
+  completion: 0.000006
+tags: [competitive]
+notes: Competitive but more expensive than other default picks.
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

@@ -1,0 +1,8 @@
+id: gpt-5.2-codex
+display_name: GPT-5.2 Codex
+provider: azure
+route: azure_openai_responses
+env_keys: [AZURE_OPENAI_API_KEY, AZURE_OPENAI_ENDPOINT]
+tags: [coding, reasoning]
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

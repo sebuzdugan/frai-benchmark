@@ -1,0 +1,354 @@
+[
+  {
+    "name": "DeepSeek-V3.2",
+    "route": "azure_openai_chat",
+    "provider": "azure",
+    "display_name": "DeepSeek V3.2",
+    "pricing": {
+      "prompt": 0.0,
+      "completion": 0.0
+    },
+    "notes": "",
+    "tags": [
+      "open-weights",
+      "reasoning"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": null,
+    "_source_path": "models/azure/deepseek-v3.2.yaml"
+  },
+  {
+    "name": "gpt-4o",
+    "route": "azure_openai_chat",
+    "provider": "azure",
+    "display_name": "GPT-4o",
+    "pricing": {
+      "prompt": 0.0,
+      "completion": 0.0
+    },
+    "notes": "",
+    "tags": [
+      "multimodal"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": null,
+    "_source_path": "models/azure/gpt-4o.yaml"
+  },
+  {
+    "name": "gpt-5.1",
+    "route": "azure_openai_chat",
+    "provider": "azure",
+    "display_name": "GPT-5.1",
+    "pricing": {
+      "prompt": 0.0,
+      "completion": 0.0
+    },
+    "notes": "",
+    "tags": [
+      "frontier"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": null,
+    "_source_path": "models/azure/gpt-5.1.yaml"
+  },
+  {
+    "name": "gpt-5.2-chat",
+    "route": "azure_openai_chat",
+    "provider": "azure",
+    "display_name": "GPT-5.2 Chat",
+    "pricing": {
+      "prompt": 0.0,
+      "completion": 0.0
+    },
+    "notes": "",
+    "tags": [
+      "chat"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": null,
+    "_source_path": "models/azure/gpt-5.2-chat.yaml"
+  },
+  {
+    "name": "gpt-5.2-codex",
+    "route": "azure_openai_responses",
+    "provider": "azure",
+    "display_name": "GPT-5.2 Codex",
+    "pricing": {
+      "prompt": 0.0,
+      "completion": 0.0
+    },
+    "notes": "",
+    "tags": [
+      "coding",
+      "reasoning"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": null,
+    "_source_path": "models/azure/gpt-5.2-codex.yaml"
+  },
+  {
+    "name": "gpt-5.2",
+    "route": "azure_openai_chat",
+    "provider": "azure",
+    "display_name": "GPT-5.2",
+    "pricing": {
+      "prompt": 0.0,
+      "completion": 0.0
+    },
+    "notes": "",
+    "tags": [
+      "frontier"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": null,
+    "_source_path": "models/azure/gpt-5.2.yaml"
+  },
+  {
+    "name": "gpt-5.4-pro",
+    "route": "azure_openai_responses",
+    "provider": "azure",
+    "display_name": "GPT-5.4 Pro",
+    "pricing": {
+      "prompt": 0.0,
+      "completion": 0.0
+    },
+    "notes": "Azure OpenAI Responses deployment.",
+    "tags": [
+      "reasoning",
+      "frontier"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": null,
+    "_source_path": "models/azure/gpt-5.4-pro.yaml"
+  },
+  {
+    "name": "grok-4-fast-reasoning",
+    "route": "azure_openai_chat",
+    "provider": "azure",
+    "display_name": "Grok 4 Fast Reasoning",
+    "pricing": {
+      "prompt": 0.0,
+      "completion": 0.0
+    },
+    "notes": "",
+    "tags": [
+      "reasoning",
+      "fast"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": null,
+    "_source_path": "models/azure/grok-4-fast-reasoning.yaml"
+  },
+  {
+    "name": "Kimi-K2-Thinking",
+    "route": "azure_openai_chat",
+    "provider": "azure",
+    "display_name": "Kimi K2 Thinking",
+    "pricing": {
+      "prompt": 0.0,
+      "completion": 0.0
+    },
+    "notes": "",
+    "tags": [
+      "reasoning",
+      "open-weights"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": null,
+    "_source_path": "models/azure/kimi-k2-thinking.yaml"
+  },
+  {
+    "name": "Mistral-Large-3",
+    "route": "azure_ai_inference",
+    "provider": "azure",
+    "display_name": "Mistral Large 3",
+    "pricing": {
+      "prompt": 0.0,
+      "completion": 0.0
+    },
+    "notes": "",
+    "tags": [
+      "open-weights"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": null,
+    "_source_path": "models/azure/mistral-large-3.yaml"
+  },
+  {
+    "name": "anthropic/claude-opus-4.7",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Claude Opus 4.7",
+    "pricing": {
+      "prompt": 5e-06,
+      "completion": 2.5e-05
+    },
+    "notes": "Premium frontier model; excluded from default budget-capped runs.",
+    "tags": [
+      "premium",
+      "reasoning"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": "https://www.anthropic.com",
+    "license": "proprietary",
+    "_source_path": "models/openrouter/anthropic-claude-opus-4.7.yaml"
+  },
+  {
+    "name": "arcee-ai/trinity-large-thinking",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Trinity Large Thinking",
+    "pricing": {
+      "prompt": 2.2e-07,
+      "completion": 8.5e-07
+    },
+    "notes": "Low-cost reasoning model.",
+    "tags": [
+      "reasoning",
+      "low-cost"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": null,
+    "_source_path": "models/openrouter/arcee-ai-trinity-large-thinking.yaml"
+  },
+  {
+    "name": "google/gemma-4-31b-it:free",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Gemma 4 31B (free)",
+    "pricing": {
+      "prompt": 0.0,
+      "completion": 0.0
+    },
+    "notes": "Free recent Gemma model.",
+    "tags": [
+      "free",
+      "open-weights"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": null,
+    "_source_path": "models/openrouter/google-gemma-4-31b-it-free.yaml"
+  },
+  {
+    "name": "moonshotai/kimi-k2.6",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Kimi K2.6",
+    "pricing": {
+      "prompt": 6e-07,
+      "completion": 2.8e-06
+    },
+    "notes": "Recent low-cost frontier open model.",
+    "tags": [
+      "open-weights",
+      "low-cost"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": "https://openrouter.ai/moonshotai/kimi-k2.6",
+    "license": "open-weights",
+    "_source_path": "models/openrouter/moonshotai-kimi-k2.6.yaml"
+  },
+  {
+    "name": "openrouter/elephant-alpha",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Elephant Alpha (free)",
+    "pricing": {
+      "prompt": 0.0,
+      "completion": 0.0
+    },
+    "notes": "Free OpenRouter model.",
+    "tags": [
+      "free"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": null,
+    "_source_path": "models/openrouter/openrouter-elephant-alpha.yaml"
+  },
+  {
+    "name": "qwen/qwen3.6-plus",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Qwen 3.6 Plus",
+    "pricing": {
+      "prompt": 3.25e-07,
+      "completion": 1.95e-06
+    },
+    "notes": "Recent low-cost Qwen model.",
+    "tags": [
+      "low-cost"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": null,
+    "_source_path": "models/openrouter/qwen-qwen3.6-plus.yaml"
+  },
+  {
+    "name": "x-ai/grok-4.20",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Grok 4.20",
+    "pricing": {
+      "prompt": 2e-06,
+      "completion": 6e-06
+    },
+    "notes": "Competitive but more expensive than other default picks.",
+    "tags": [
+      "competitive"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": null,
+    "_source_path": "models/openrouter/x-ai-grok-4.20.yaml"
+  },
+  {
+    "name": "z-ai/glm-5.1",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "GLM 5.1",
+    "pricing": {
+      "prompt": 6.98e-07,
+      "completion": 4.4e-06
+    },
+    "notes": "Recent agentic/coding model.",
+    "tags": [
+      "agentic",
+      "coding"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": null,
+    "_source_path": "models/openrouter/z-ai-glm-5.1.yaml"
+  }
+]

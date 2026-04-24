@@ -166,3 +166,11 @@ jobs:
           name: bench-pending-${{ github.run_id }}
           path: results/submissions/
           if-no-files-found: ignore
+
+      - name: Trigger leaderboard redeploy
+        # Pushes from the default GITHUB_TOKEN don't fire downstream workflows,
+        # so we explicitly dispatch the deploy workflow after committing results.
+        if: steps.list.outputs.count != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy-website.yml --repo "${{ github.repository }}" --ref main

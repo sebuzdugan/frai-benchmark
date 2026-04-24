@@ -1,0 +1,10 @@
+id: qwen/qwen-2.5-coder-32b-instruct
+display_name: Qwen 2.5 Coder 32B
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.00000007, completion: 0.00000016 }
+tags: [open-weights, coding]
+notes: Code-specialized Qwen; covers coding-related safety prompts.
+license: open-weights
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

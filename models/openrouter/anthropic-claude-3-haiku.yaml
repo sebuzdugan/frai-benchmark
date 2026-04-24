@@ -1,0 +1,10 @@
+id: anthropic/claude-3-haiku
+display_name: Claude 3 Haiku
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.00000025, completion: 0.00000125 }
+tags: [fast, low-cost, legacy]
+notes: Lightweight reference; useful as a cost-control lower bound.
+license: proprietary
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

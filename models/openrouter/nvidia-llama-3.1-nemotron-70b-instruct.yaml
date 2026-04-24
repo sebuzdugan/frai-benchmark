@@ -1,0 +1,10 @@
+id: nvidia/llama-3.1-nemotron-70b-instruct
+display_name: Nemotron 70B (Llama 3.1)
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.00000035, completion: 0.0000004 }
+tags: [open-weights]
+notes: Nvidia's RLHF-tuned Llama 3.1 70B.
+license: open-weights
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

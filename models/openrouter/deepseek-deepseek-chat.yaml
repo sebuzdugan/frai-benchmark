@@ -1,0 +1,10 @@
+id: deepseek/deepseek-chat
+display_name: DeepSeek Chat
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.00000014, completion: 0.00000028 }
+tags: [open-weights, low-cost]
+notes: Non-reasoning DeepSeek chat model via OpenRouter.
+license: open-weights
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

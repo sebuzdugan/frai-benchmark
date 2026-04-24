@@ -195,6 +195,125 @@
     "_source_path": "models/azure/mistral-large-3.yaml"
   },
   {
+    "name": "01-ai/yi-large",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Yi Large",
+    "pricing": {
+      "prompt": 3e-06,
+      "completion": 3e-06
+    },
+    "notes": "01.AI's flagship model; strong Chinese/English coverage.",
+    "tags": [
+      "multilingual"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/01-ai-yi-large.yaml"
+  },
+  {
+    "name": "amazon/nova-lite-v1",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Amazon Nova Lite v1",
+    "pricing": {
+      "prompt": 6e-08,
+      "completion": 2.4e-07
+    },
+    "notes": "Cheap Nova variant.",
+    "tags": [
+      "fast",
+      "low-cost",
+      "multimodal"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/amazon-nova-lite-v1.yaml"
+  },
+  {
+    "name": "amazon/nova-pro-v1",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Amazon Nova Pro v1",
+    "pricing": {
+      "prompt": 8e-07,
+      "completion": 3.2e-06
+    },
+    "notes": "Amazon's multimodal Nova Pro.",
+    "tags": [
+      "multimodal",
+      "enterprise"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/amazon-nova-pro-v1.yaml"
+  },
+  {
+    "name": "anthropic/claude-3-haiku",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Claude 3 Haiku",
+    "pricing": {
+      "prompt": 2.5e-07,
+      "completion": 1.25e-06
+    },
+    "notes": "Lightweight reference; useful as a cost-control lower bound.",
+    "tags": [
+      "fast",
+      "low-cost",
+      "legacy"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/anthropic-claude-3-haiku.yaml"
+  },
+  {
+    "name": "anthropic/claude-3-opus",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Claude 3 Opus",
+    "pricing": {
+      "prompt": 1.5e-05,
+      "completion": 7.5e-05
+    },
+    "notes": "Reference model for comparisons with the 4.x family.",
+    "tags": [
+      "legacy-frontier"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/anthropic-claude-3-opus.yaml"
+  },
+  {
+    "name": "anthropic/claude-3.5-sonnet",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Claude 3.5 Sonnet",
+    "pricing": {
+      "prompt": 3e-06,
+      "completion": 1.5e-05
+    },
+    "notes": "Long-standing Anthropic workhorse; strong instruction-following baseline.",
+    "tags": [
+      "frontier"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/anthropic-claude-3.5-sonnet.yaml"
+  },
+  {
     "name": "anthropic/claude-haiku-4.5",
     "route": "openrouter_chat",
     "provider": "openrouter",
@@ -275,6 +394,166 @@
     "_source_path": "models/openrouter/arcee-ai-trinity-large-thinking.yaml"
   },
   {
+    "name": "cohere/command-r-plus",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Cohere Command R+",
+    "pricing": {
+      "prompt": 2.5e-06,
+      "completion": 1e-05
+    },
+    "notes": "Cohere's flagship RAG model.",
+    "tags": [
+      "enterprise",
+      "rag",
+      "frontier"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/cohere-command-r-plus.yaml"
+  },
+  {
+    "name": "cohere/command-r",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Cohere Command R",
+    "pricing": {
+      "prompt": 1.5e-07,
+      "completion": 6e-07
+    },
+    "notes": "Cohere's RAG-tuned model.",
+    "tags": [
+      "enterprise",
+      "rag"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/cohere-command-r.yaml"
+  },
+  {
+    "name": "databricks/dbrx-instruct",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "DBRX Instruct",
+    "pricing": {
+      "prompt": 1.2e-06,
+      "completion": 1.2e-06
+    },
+    "notes": "Databricks' MoE open-weights model.",
+    "tags": [
+      "open-weights"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "open-weights",
+    "_source_path": "models/openrouter/databricks-dbrx-instruct.yaml"
+  },
+  {
+    "name": "deepseek/deepseek-chat",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "DeepSeek Chat",
+    "pricing": {
+      "prompt": 1.4e-07,
+      "completion": 2.8e-07
+    },
+    "notes": "Non-reasoning DeepSeek chat model via OpenRouter.",
+    "tags": [
+      "open-weights",
+      "low-cost"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "open-weights",
+    "_source_path": "models/openrouter/deepseek-deepseek-chat.yaml"
+  },
+  {
+    "name": "deepseek/deepseek-r1",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "DeepSeek R1",
+    "pricing": {
+      "prompt": 5.5e-07,
+      "completion": 2.19e-06
+    },
+    "notes": "Open-weights reasoning model; strong on structured refusal & analysis.",
+    "tags": [
+      "reasoning",
+      "open-weights"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "open-weights",
+    "_source_path": "models/openrouter/deepseek-deepseek-r1.yaml"
+  },
+  {
+    "name": "google/gemini-2.0-flash-001",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Gemini 2.0 Flash",
+    "pricing": {
+      "prompt": 1e-07,
+      "completion": 4e-07
+    },
+    "notes": "Google's fast multimodal model.",
+    "tags": [
+      "fast",
+      "multimodal"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/google-gemini-2.0-flash.yaml"
+  },
+  {
+    "name": "google/gemini-flash-1.5",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Gemini Flash 1.5",
+    "pricing": {
+      "prompt": 7.5e-08,
+      "completion": 3e-07
+    },
+    "notes": "Budget-friendly Gemini variant.",
+    "tags": [
+      "fast",
+      "low-cost"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/google-gemini-flash-1.5.yaml"
+  },
+  {
+    "name": "google/gemini-pro-1.5",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Gemini Pro 1.5",
+    "pricing": {
+      "prompt": 1.25e-06,
+      "completion": 5e-06
+    },
+    "notes": "Long-context multimodal model with 2M token capacity.",
+    "tags": [
+      "long-context",
+      "multimodal"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/google-gemini-pro-1.5.yaml"
+  },
+  {
     "name": "google/gemma-4-31b-it:free",
     "route": "openrouter_chat",
     "provider": "openrouter",
@@ -293,6 +572,65 @@
     "homepage": null,
     "license": null,
     "_source_path": "models/openrouter/google-gemma-4-31b-it-free.yaml"
+  },
+  {
+    "name": "meta-llama/llama-3.1-405b-instruct",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Llama 3.1 405B Instruct",
+    "pricing": {
+      "prompt": 8e-07,
+      "completion": 8e-07
+    },
+    "notes": "Largest open-weights Llama 3.1 \u2014 useful competitive baseline.",
+    "tags": [
+      "open-weights",
+      "frontier"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "open-weights",
+    "_source_path": "models/openrouter/meta-llama-llama-3.1-405b-instruct.yaml"
+  },
+  {
+    "name": "meta-llama/llama-3.1-70b-instruct",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Llama 3.1 70B Instruct",
+    "pricing": {
+      "prompt": 2.3e-07,
+      "completion": 4e-07
+    },
+    "notes": "Popular 70B open-weights variant.",
+    "tags": [
+      "open-weights"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "open-weights",
+    "_source_path": "models/openrouter/meta-llama-llama-3.1-70b-instruct.yaml"
+  },
+  {
+    "name": "meta-llama/llama-3.1-8b-instruct",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Llama 3.1 8B Instruct",
+    "pricing": {
+      "prompt": 2e-08,
+      "completion": 5e-08
+    },
+    "notes": "Small, fast Llama \u2014 floor reference for cost/latency comparisons.",
+    "tags": [
+      "open-weights",
+      "low-cost"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "open-weights",
+    "_source_path": "models/openrouter/meta-llama-llama-3.1-8b-instruct.yaml"
   },
   {
     "name": "meta-llama/llama-3.3-70b-instruct",
@@ -315,6 +653,83 @@
     "_source_path": "models/openrouter/meta-llama-llama-3.3-70b-instruct.yaml"
   },
   {
+    "name": "microsoft/wizardlm-2-8x22b",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "WizardLM-2 8x22B",
+    "pricing": {
+      "prompt": 5e-07,
+      "completion": 5e-07
+    },
+    "notes": "Microsoft-released MoE instruction-tuned model.",
+    "tags": [
+      "open-weights"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "open-weights",
+    "_source_path": "models/openrouter/microsoft-wizardlm-2-8x22b.yaml"
+  },
+  {
+    "name": "mistralai/codestral-2501",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Codestral (2501)",
+    "pricing": {
+      "prompt": 3e-07,
+      "completion": 9e-07
+    },
+    "notes": "Coding-specialized Mistral variant; useful for code-related safety tests.",
+    "tags": [
+      "coding"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/mistralai-codestral-2501.yaml"
+  },
+  {
+    "name": "mistralai/mistral-large-2411",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Mistral Large (2411)",
+    "pricing": {
+      "prompt": 2e-06,
+      "completion": 6e-06
+    },
+    "notes": "Mistral's current flagship via OpenRouter.",
+    "tags": [
+      "frontier"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/mistralai-mistral-large-2411.yaml"
+  },
+  {
+    "name": "mistralai/mistral-nemo",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Mistral Nemo",
+    "pricing": {
+      "prompt": 1.3e-07,
+      "completion": 1.3e-07
+    },
+    "notes": "Compact 12B joint Mistral/Nvidia model.",
+    "tags": [
+      "open-weights",
+      "low-cost"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "open-weights",
+    "_source_path": "models/openrouter/mistralai-mistral-nemo.yaml"
+  },
+  {
     "name": "moonshotai/kimi-k2.6",
     "route": "openrouter_chat",
     "provider": "openrouter",
@@ -335,6 +750,83 @@
     "_source_path": "models/openrouter/moonshotai-kimi-k2.6.yaml"
   },
   {
+    "name": "nvidia/llama-3.1-nemotron-70b-instruct",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Nemotron 70B (Llama 3.1)",
+    "pricing": {
+      "prompt": 3.5e-07,
+      "completion": 4e-07
+    },
+    "notes": "Nvidia's RLHF-tuned Llama 3.1 70B.",
+    "tags": [
+      "open-weights"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "open-weights",
+    "_source_path": "models/openrouter/nvidia-llama-3.1-nemotron-70b-instruct.yaml"
+  },
+  {
+    "name": "openai/gpt-4-turbo",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "GPT-4 Turbo",
+    "pricing": {
+      "prompt": 1e-05,
+      "completion": 3e-05
+    },
+    "notes": "Prior-generation GPT-4 Turbo reference.",
+    "tags": [
+      "legacy"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/openai-gpt-4-turbo.yaml"
+  },
+  {
+    "name": "openai/gpt-4o-mini",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "GPT-4o mini",
+    "pricing": {
+      "prompt": 1.5e-07,
+      "completion": 6e-07
+    },
+    "notes": "OpenAI's cheap, fast general-purpose model.",
+    "tags": [
+      "fast",
+      "low-cost"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/openai-gpt-4o-mini.yaml"
+  },
+  {
+    "name": "openai/gpt-4o",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "GPT-4o (OpenRouter)",
+    "pricing": {
+      "prompt": 2.5e-06,
+      "completion": 1e-05
+    },
+    "notes": "Multimodal GPT-4o via OpenRouter.",
+    "tags": [
+      "multimodal"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/openai-gpt-4o.yaml"
+  },
+  {
     "name": "openai/gpt-5.2",
     "route": "openrouter_chat",
     "provider": "openrouter",
@@ -352,6 +844,26 @@
     "homepage": "https://openai.com",
     "license": "proprietary",
     "_source_path": "models/openrouter/openai-gpt-5.2.yaml"
+  },
+  {
+    "name": "openai/o3-mini",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "o3-mini",
+    "pricing": {
+      "prompt": 1.1e-06,
+      "completion": 4.4e-06
+    },
+    "notes": "Prior-generation small reasoning model; useful as an o4-mini baseline.",
+    "tags": [
+      "reasoning",
+      "low-cost"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/openai-o3-mini.yaml"
   },
   {
     "name": "openai/o4-mini",
@@ -391,6 +903,65 @@
     "homepage": null,
     "license": null,
     "_source_path": "models/openrouter/openrouter-elephant-alpha.yaml"
+  },
+  {
+    "name": "perplexity/llama-3.1-sonar-large-128k-online",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Sonar Large (online)",
+    "pricing": {
+      "prompt": 1e-06,
+      "completion": 1e-06
+    },
+    "notes": "Perplexity's search-augmented Llama \u2014 tests how retrieval affects safety.",
+    "tags": [
+      "online-search",
+      "rag"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "proprietary",
+    "_source_path": "models/openrouter/perplexity-llama-3.1-sonar-large-128k-online.yaml"
+  },
+  {
+    "name": "qwen/qwen-2.5-72b-instruct",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Qwen 2.5 72B Instruct",
+    "pricing": {
+      "prompt": 2.3e-07,
+      "completion": 4e-07
+    },
+    "notes": "Strong multilingual open-weights model.",
+    "tags": [
+      "open-weights"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "open-weights",
+    "_source_path": "models/openrouter/qwen-qwen-2.5-72b-instruct.yaml"
+  },
+  {
+    "name": "qwen/qwen-2.5-coder-32b-instruct",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Qwen 2.5 Coder 32B",
+    "pricing": {
+      "prompt": 7e-08,
+      "completion": 1.6e-07
+    },
+    "notes": "Code-specialized Qwen; covers coding-related safety prompts.",
+    "tags": [
+      "open-weights",
+      "coding"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": null,
+    "license": "open-weights",
+    "_source_path": "models/openrouter/qwen-qwen-2.5-coder-32b-instruct.yaml"
   },
   {
     "name": "qwen/qwen3.6-plus",

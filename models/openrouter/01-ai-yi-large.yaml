@@ -1,0 +1,10 @@
+id: 01-ai/yi-large
+display_name: Yi Large
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.000003, completion: 0.000003 }
+tags: [multilingual]
+notes: 01.AI's flagship model; strong Chinese/English coverage.
+license: proprietary
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

@@ -26,9 +26,24 @@ build/
 *.egg-info/
 .env
 
-# Benchmark Results
-results/
+# Benchmark Results — tracked: canonical leaderboard inputs; ignored: per-run
+# scratch output. Git can't re-include files under an ignored parent, so we
+# ignore each level selectively.
+results/*
+!results/archive/
+!results/latest/
+!results/submissions/
+
+results/latest/*
+!results/latest/comparison.json
+!results/latest/summary.json
+!results/latest/summary.md
+
+results/archive/*
 !results/archive/.gitkeep
+
+results/submissions/**/*
+!results/submissions/**/*.json
 
 # IDEs
 .vscode/

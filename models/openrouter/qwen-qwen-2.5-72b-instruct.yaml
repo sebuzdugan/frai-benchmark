@@ -1,0 +1,10 @@
+id: qwen/qwen-2.5-72b-instruct
+display_name: Qwen 2.5 72B Instruct
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.00000023, completion: 0.0000004 }
+tags: [open-weights]
+notes: Strong multilingual open-weights model.
+license: open-weights
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

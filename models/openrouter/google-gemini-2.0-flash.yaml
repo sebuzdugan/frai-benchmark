@@ -1,0 +1,10 @@
+id: google/gemini-2.0-flash-001
+display_name: Gemini 2.0 Flash
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.0000001, completion: 0.0000004 }
+tags: [fast, multimodal]
+notes: Google's fast multimodal model.
+license: proprietary
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

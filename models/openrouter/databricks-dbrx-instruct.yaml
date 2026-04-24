@@ -1,0 +1,10 @@
+id: databricks/dbrx-instruct
+display_name: DBRX Instruct
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.0000012, completion: 0.0000012 }
+tags: [open-weights]
+notes: Databricks' MoE open-weights model.
+license: open-weights
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

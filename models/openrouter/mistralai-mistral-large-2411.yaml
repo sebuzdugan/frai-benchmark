@@ -1,0 +1,10 @@
+id: mistralai/mistral-large-2411
+display_name: Mistral Large (2411)
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.000002, completion: 0.000006 }
+tags: [frontier]
+notes: Mistral's current flagship via OpenRouter.
+license: proprietary
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

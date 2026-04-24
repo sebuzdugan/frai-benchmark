@@ -1,0 +1,11 @@
+id: anthropic/claude-3-opus
+display_name: Claude 3 Opus
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.000015, completion: 0.000075 }
+tags: [legacy-frontier]
+notes: Reference model for comparisons with the 4.x family.
+license: proprietary
+premium: true
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

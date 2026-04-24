@@ -1,0 +1,10 @@
+id: openai/gpt-4o-mini
+display_name: GPT-4o mini
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.00000015, completion: 0.0000006 }
+tags: [fast, low-cost]
+notes: OpenAI's cheap, fast general-purpose model.
+license: proprietary
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

@@ -1,0 +1,10 @@
+id: deepseek/deepseek-r1
+display_name: DeepSeek R1
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.00000055, completion: 0.00000219 }
+tags: [reasoning, open-weights]
+notes: Open-weights reasoning model; strong on structured refusal & analysis.
+license: open-weights
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

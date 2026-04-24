@@ -1,0 +1,10 @@
+id: meta-llama/llama-3.1-8b-instruct
+display_name: Llama 3.1 8B Instruct
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.00000002, completion: 0.00000005 }
+tags: [open-weights, low-cost]
+notes: Small, fast Llama — floor reference for cost/latency comparisons.
+license: open-weights
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

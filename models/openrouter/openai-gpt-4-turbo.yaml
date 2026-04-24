@@ -1,0 +1,11 @@
+id: openai/gpt-4-turbo
+display_name: GPT-4 Turbo
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.00001, completion: 0.00003 }
+tags: [legacy]
+notes: Prior-generation GPT-4 Turbo reference.
+license: proprietary
+premium: true
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

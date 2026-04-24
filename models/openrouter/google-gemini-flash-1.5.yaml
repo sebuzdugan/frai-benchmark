@@ -1,0 +1,10 @@
+id: google/gemini-flash-1.5
+display_name: Gemini Flash 1.5
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.000000075, completion: 0.0000003 }
+tags: [fast, low-cost]
+notes: Budget-friendly Gemini variant.
+license: proprietary
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

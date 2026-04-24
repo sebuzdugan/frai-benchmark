@@ -1,0 +1,10 @@
+id: mistralai/mistral-nemo
+display_name: Mistral Nemo
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.00000013, completion: 0.00000013 }
+tags: [open-weights, low-cost]
+notes: Compact 12B joint Mistral/Nvidia model.
+license: open-weights
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

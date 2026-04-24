@@ -1,0 +1,10 @@
+id: microsoft/wizardlm-2-8x22b
+display_name: WizardLM-2 8x22B
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.0000005, completion: 0.0000005 }
+tags: [open-weights]
+notes: Microsoft-released MoE instruction-tuned model.
+license: open-weights
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

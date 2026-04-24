@@ -4,7 +4,10 @@ import { useEffect, useMemo, useState } from "react";
 import {
   Activity,
   BarChart3,
+  CheckCircle2,
   CheckSquare,
+  Clock,
+  Database,
   ExternalLink,
   Gauge,
   GitPullRequest,
@@ -165,6 +168,19 @@ export default function Home() {
     () => aggregate(rows, models, categoryFilter),
     [rows, models, categoryFilter],
   );
+  const registryList = useMemo(
+    () =>
+      Object.values(models).sort((a, b) =>
+        (a.name ?? "").localeCompare(b.name ?? ""),
+      ),
+    [models],
+  );
+  const benchmarkedSet = useMemo(
+    () => new Set(data.map((d) => d.model)),
+    [data],
+  );
+  const registeredCount = registryList.length;
+  const pendingCount = Math.max(registeredCount - data.length, 0);
 
   const toggleSelected = (model: string) => {
     setSelected((prev) => {
@@ -186,33 +202,37 @@ export default function Home() {
     );
   }
 
-  if (!data.length) {
+  if (!data.length && !registryList.length) {
     return (
       <div className="min-h-screen bg-[#f5f6f1] text-[#141712] flex items-center justify-center px-6">
         <div className="max-w-md text-center">
           <ShieldCheck className="mx-auto mb-4 text-[#126b45]" size={40} />
-          <h1 className="text-2xl font-black">No results yet</h1>
+          <h1 className="text-2xl font-black">Leaderboard data missing</h1>
           <p className="mt-3 text-sm text-[#526050]">
-            Run <code className="rounded bg-[#eef2e7] px-1">python scripts/run_benchmark.py</code>{" "}
-            and then{" "}
+            Run{" "}
             <code className="rounded bg-[#eef2e7] px-1">
               python scripts/build_leaderboard_data.py
             </code>{" "}
-            to populate the leaderboard.
+            in CI to populate{" "}
+            <code className="rounded bg-[#eef2e7] px-1">results.json</code> and{" "}
+            <code className="rounded bg-[#eef2e7] px-1">models.json</code>.
           </p>
         </div>
       </div>
     );
   }
 
-  const leader = data[0];
+  const hasResults = data.length > 0;
+  const leader = hasResults ? data[0] : null;
   const totalResults = data.reduce((a, m) => a + m.resultCount, 0);
   const benchmarkAverage =
     data.reduce((a, m) => a + m.avgScore, 0) / (data.length || 1);
-  const fastest = data.reduce(
-    (best, m) => (m.avgLatency < best.avgLatency ? m : best),
-    data[0],
-  );
+  const fastest = hasResults
+    ? data.reduce(
+        (best, m) => (m.avgLatency < best.avgLatency ? m : best),
+        data[0],
+      )
+    : null;
   const selectedData = data.filter((d) => selected.has(d.model));
 
   const submitUrl = `${REPO_URL}/compare/main...main?quick_pull=1&template=model.md&labels=model-submission&title=${encodeURIComponent(
@@ -332,55 +352,89 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <StatCard label="Models" icon={<BarChart3 size={17} />}>
-                <div className="mt-4 text-4xl font-black">{data.length}</div>
+              <StatCard label="Registered" icon={<Database size={17} />}>
+                <div className="mt-4 text-4xl font-black">{registeredCount}</div>
+                <div className="mt-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[#647060]">
+                  models
+                </div>
               </StatCard>
-              <StatCard label="Results" icon={<Activity size={17} />}>
+              <StatCard label="Benchmarked" icon={<BarChart3 size={17} />}>
+                <div className="mt-4 text-4xl font-black">{data.length}</div>
+                <div className="mt-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[#647060]">
+                  {pendingCount} pending
+                </div>
+              </StatCard>
+              <StatCard label="Test rows" icon={<Activity size={17} />}>
                 <div className="mt-4 text-4xl font-black">{totalResults}</div>
               </StatCard>
               <StatCard label="Average" icon={<Gauge size={17} />}>
                 <div className="mt-4 text-4xl font-black">
-                  {benchmarkAverage.toFixed(1)}
+                  {hasResults ? benchmarkAverage.toFixed(1) : "—"}
                 </div>
               </StatCard>
               <StatCard label="Fastest" icon={<Timer size={17} />}>
                 <div className="mt-4 text-xl font-black leading-tight">
-                  {formatModelName(fastest.meta, fastest.model)}
+                  {fastest
+                    ? formatModelName(fastest.meta, fastest.model)
+                    : "—"}
                 </div>
               </StatCard>
             </div>
           </div>
 
           <div className="grid gap-4">
-            <section className="rounded-lg border border-[#1e271d] bg-[#141712] p-5 text-white shadow-xl">
-              <div className="mb-5 flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#b7d36b]">
-                    Top performer{categoryFilter ? ` — ${categoryFilter}` : ""}
-                  </p>
-                  <h2 className="mt-2 text-3xl font-black tracking-normal">
-                    {formatModelName(leader.meta, leader.model)}
-                  </h2>
-                  {leader.meta?.submitted_by && (
-                    <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-[#b7d36b]">
-                      <Users size={12} />
-                      {leader.meta.submitted_by}
+            {leader ? (
+              <section className="rounded-lg border border-[#1e271d] bg-[#141712] p-5 text-white shadow-xl">
+                <div className="mb-5 flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#b7d36b]">
+                      Top performer
+                      {categoryFilter ? ` — ${categoryFilter}` : ""}
                     </p>
-                  )}
+                    <h2 className="mt-2 text-3xl font-black tracking-normal">
+                      {formatModelName(leader.meta, leader.model)}
+                    </h2>
+                    {leader.meta?.submitted_by && (
+                      <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-[#b7d36b]">
+                        <Users size={12} />
+                        {leader.meta.submitted_by}
+                      </p>
+                    )}
+                  </div>
+                  <div className="grid size-12 place-items-center rounded-lg bg-[#d79b21] text-[#141712]">
+                    <Trophy size={24} />
+                  </div>
                 </div>
-                <div className="grid size-12 place-items-center rounded-lg bg-[#d79b21] text-[#141712]">
-                  <Trophy size={24} />
+                <div className="grid grid-cols-3 gap-3">
+                  <NightStat label="Score" value={leader.avgScore.toFixed(2)} />
+                  <NightStat
+                    label="Pass Rate"
+                    value={`${leader.passRate.toFixed(0)}%`}
+                  />
+                  <NightStat
+                    label="Rows"
+                    value={leader.resultCount.toString()}
+                  />
                 </div>
-              </div>
-              <div className="grid grid-cols-3 gap-3">
-                <NightStat label="Score" value={leader.avgScore.toFixed(2)} />
-                <NightStat
-                  label="Pass Rate"
-                  value={`${leader.passRate.toFixed(0)}%`}
-                />
-                <NightStat label="Rows" value={leader.resultCount.toString()} />
-              </div>
-            </section>
+              </section>
+            ) : (
+              <section className="rounded-lg border border-[#d79b21] bg-[#fffaec] p-5 shadow-sm">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#a15c0a]">
+                  Benchmarks pending
+                </p>
+                <h2 className="mt-2 text-2xl font-black tracking-normal text-[#141712]">
+                  {registeredCount} models registered, awaiting their next run.
+                </h2>
+                <p className="mt-2 text-sm text-[#4f5a4c]">
+                  The community registry is populated below. Run{" "}
+                  <code className="rounded bg-white px-1 py-0.5 text-xs">
+                    python scripts/run_benchmark.py
+                  </code>{" "}
+                  or trigger the <strong>Benchmark Submission</strong>{" "}
+                  workflow to fill the scoreboard.
+                </p>
+              </section>
+            )}
 
             <section className="rounded-lg border border-[#d6dccf] bg-white p-5 shadow-sm">
               <div className="mb-4 flex items-center justify-between">
@@ -511,43 +565,134 @@ export default function Home() {
           </section>
         )}
 
-        <section className="grid grid-cols-1 gap-3 border-t border-[#d6dccf] pt-5 md:grid-cols-4 lg:grid-cols-7">
-          {data.map((model) => (
-            <div
-              key={model.model}
-              className="rounded-lg border border-[#d6dccf] bg-white p-3 shadow-sm"
-            >
-              <div className="mb-1 min-h-10 text-sm font-black leading-tight">
-                {formatModelName(model.meta, model.model)}
-              </div>
-              {model.meta?.provider && (
-                <div className="mb-2 text-[9px] font-bold uppercase tracking-[0.1em] text-[#647060]">
-                  {model.meta.provider}
-                  {model.meta.submitted_by ? ` · ${model.meta.submitted_by}` : ""}
+        {hasResults && (
+          <section className="grid grid-cols-1 gap-3 border-t border-[#d6dccf] pt-5 md:grid-cols-4 lg:grid-cols-7">
+            {data.map((model) => (
+              <div
+                key={model.model}
+                className="rounded-lg border border-[#d6dccf] bg-white p-3 shadow-sm"
+              >
+                <div className="mb-1 min-h-10 text-sm font-black leading-tight">
+                  {formatModelName(model.meta, model.model)}
                 </div>
-              )}
-              <div className="space-y-2">
-                {CATEGORY_ORDER.map((category) => (
-                  <div
-                    key={category}
-                    className="flex items-center justify-between gap-2"
-                  >
-                    <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#647060]">
-                      {category.slice(0, 4)}
-                    </span>
-                    <span
-                      className={`min-w-10 rounded-md px-2 py-1 text-center text-xs font-black ${scoreClass(model.categories[category])}`}
-                    >
-                      {model.categories[category]
-                        ? model.categories[category].toFixed(1)
-                        : "-"}
-                    </span>
+                {model.meta?.provider && (
+                  <div className="mb-2 text-[9px] font-bold uppercase tracking-[0.1em] text-[#647060]">
+                    {model.meta.provider}
+                    {model.meta.submitted_by
+                      ? ` · ${model.meta.submitted_by}`
+                      : ""}
                   </div>
-                ))}
+                )}
+                <div className="space-y-2">
+                  {CATEGORY_ORDER.map((category) => (
+                    <div
+                      key={category}
+                      className="flex items-center justify-between gap-2"
+                    >
+                      <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#647060]">
+                        {category.slice(0, 4)}
+                      </span>
+                      <span
+                        className={`min-w-10 rounded-md px-2 py-1 text-center text-xs font-black ${scoreClass(model.categories[category])}`}
+                      >
+                        {model.categories[category]
+                          ? model.categories[category].toFixed(1)
+                          : "-"}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </section>
+        )}
+
+        {registryList.length > 0 && (
+          <section className="mt-6 rounded-lg border border-[#d6dccf] bg-white p-5 shadow-sm">
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+              <h2 className="flex items-center gap-2 text-xl font-black">
+                <Database className="text-[#126b45]" size={20} />
+                Model Registry · {registeredCount} models
+              </h2>
+              <div className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.14em]">
+                <span className="inline-flex items-center gap-1 rounded-md bg-[#eef2e7] px-2 py-1 text-[#126b45]">
+                  <CheckCircle2 size={11} /> {data.length} benchmarked
+                </span>
+                <span className="inline-flex items-center gap-1 rounded-md bg-[#fffaec] px-2 py-1 text-[#a15c0a]">
+                  <Clock size={11} /> {pendingCount} pending
+                </span>
               </div>
             </div>
-          ))}
-        </section>
+            <p className="mb-4 max-w-3xl text-[12px] text-[#526050]">
+              Every model is defined by a YAML under{" "}
+              <code className="rounded bg-[#eef2e7] px-1 text-[11px]">
+                models/&lt;provider&gt;/
+              </code>
+              . Contributors open a PR, CI validates the schema, and the
+              benchmark runs on merge. Pending rows show models awaiting their
+              next scheduled run.
+            </p>
+            <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
+              {registryList.map((m) => {
+                const done = benchmarkedSet.has(m.name);
+                return (
+                  <div
+                    key={m.name}
+                    className={`rounded-lg border bg-white p-3 shadow-sm ${
+                      done ? "border-[#c9d5bd]" : "border-[#d6dccf]"
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="min-w-0 flex-1">
+                        <div className="truncate text-sm font-black text-[#263024]" title={m.name}>
+                          {formatModelName(m, m.name)}
+                        </div>
+                        <div className="mt-0.5 truncate font-mono text-[10px] text-[#647060]">
+                          {m.name}
+                        </div>
+                      </div>
+                      <span
+                        className={`inline-flex shrink-0 items-center gap-1 rounded-md px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em] ${
+                          done
+                            ? "bg-[#eef2e7] text-[#126b45]"
+                            : "bg-[#fffaec] text-[#a15c0a]"
+                        }`}
+                      >
+                        {done ? <CheckCircle2 size={10} /> : <Clock size={10} />}
+                        {done ? "scored" : "pending"}
+                      </span>
+                    </div>
+                    <div className="mt-2 flex flex-wrap items-center gap-1 text-[9px] font-bold uppercase tracking-[0.1em]">
+                      {m.provider && (
+                        <span className="rounded bg-[#141712] px-1.5 py-0.5 text-white">
+                          {m.provider}
+                        </span>
+                      )}
+                      {m.license && (
+                        <span className="rounded border border-[#d6dccf] bg-white px-1.5 py-0.5 text-[#4f5a4c]">
+                          {m.license}
+                        </span>
+                      )}
+                      {m.tags?.slice(0, 2).map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded bg-[#eef2e7] px-1.5 py-0.5 text-[#526050]"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    {m.submitted_by && (
+                      <div className="mt-2 flex items-center gap-1 text-[10px] text-[#647060]">
+                        <Users size={9} /> {m.submitted_by}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        )}
 
         <footer className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-[#d6dccf] pt-4 text-xs text-[#5c6659]">
           <span>

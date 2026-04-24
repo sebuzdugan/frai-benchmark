@@ -1,0 +1,10 @@
+id: meta-llama/llama-3.1-70b-instruct
+display_name: Llama 3.1 70B Instruct
+provider: openrouter
+route: openrouter_chat
+pricing: { prompt: 0.00000023, completion: 0.0000004 }
+tags: [open-weights]
+notes: Popular 70B open-weights variant.
+license: open-weights
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

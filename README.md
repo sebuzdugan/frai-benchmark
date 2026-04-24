@@ -4,7 +4,7 @@
 >
 > Live leaderboard: **https://sebuzdugan.github.io/frai-benchmark/**
 
-![FRAI benchmark leaderboard — 52 registered models across 14 providers, interactive category filters, side-by-side compare, community Registry section](assets/readme_app_screenshot.png)
+![FRAI benchmark leaderboard — 52 registered models, 22 benchmarked, 535 test rows, interactive category filters, side-by-side compare, community Registry section](assets/readme_app_screenshot.png)
 
 ## Goal
 To become the go-to resource for evaluating LLMs on bias, safety, jailbreak resistance, and regulatory compliance, specifically targeting the **EU AI Act** and enterprise readiness.

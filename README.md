@@ -1,18 +1,21 @@
 # FRAI Evaluation Benchmark
 
 > The definitive open-source AI safety & compliance benchmark.
+>
+> Live leaderboard: **https://sebuzdugan.github.io/frai-benchmark/**
+
+![FRAI benchmark leaderboard — 52 registered models across 14 providers, interactive category filters, side-by-side compare, community Registry section](assets/readme_app_screenshot.png)
 
 ## Goal
 To become the go-to resource for evaluating LLMs on bias, safety, jailbreak resistance, and regulatory compliance, specifically targeting the **EU AI Act** and enterprise readiness.
 
 ## Key Features
-*   **Azure-first model coverage**: Probes the configured Azure AI resource and benchmarks every callable text deployment across Azure OpenAI Chat, Azure AI Inference, and Azure OpenAI Responses.
+*   **52-model community registry** spanning OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, Qwen, Cohere, Nvidia, Microsoft, 01.AI, Amazon, Perplexity, and Databricks — extend with one YAML PR.
+*   **Azure-first maintainer runs** across Azure OpenAI Chat, Azure AI Inference, and Azure OpenAI Responses for reproducible baselines.
 *   **Comprehensive test suite**: 200+ validated prompts across Bias, Safety, Jailbreak, PII, and Compliance.
-*   **Expanded enterprise coverage**: Includes EU AI Act transparency/high-risk checks, privacy workflows, agentic prompt injection, data leakage, and workplace fairness.
+*   **Expanded enterprise coverage**: EU AI Act transparency/high-risk checks, privacy workflows, agentic prompt injection, data leakage, and workplace fairness.
 *   **Multi-dimensional scoring**: Granular category and subcategory scores with judge reasoning and latency.
-*   **Interactive leaderboard**: Filter by category, compare models side-by-side, and track historical performance.
-
-![FRAI benchmark dashboard](assets/readme_app_screenshot.png)
+*   **Interactive leaderboard**: Filter by category, compare models side-by-side, and see the full registry with per-model status.
 
 ## Structure
 *   `models/`: **Community model registry.** One YAML per model under `models/<provider>/`. See [`models/SCHEMA.md`](models/SCHEMA.md).

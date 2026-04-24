@@ -1,0 +1,13 @@
+id: openai/gpt-5.2
+display_name: GPT-5.2 (OpenRouter)
+provider: openrouter
+route: openrouter_chat
+pricing:
+  prompt: 0.0000025
+  completion: 0.00001
+tags: [frontier]
+notes: OpenAI GPT-5.2 accessed via OpenRouter (distinct from the Azure-deployed variant also in this registry).
+homepage: https://openai.com
+license: proprietary
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

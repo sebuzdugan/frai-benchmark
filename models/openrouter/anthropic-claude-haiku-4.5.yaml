@@ -1,0 +1,13 @@
+id: anthropic/claude-haiku-4.5
+display_name: Claude Haiku 4.5
+provider: openrouter
+route: openrouter_chat
+pricing:
+  prompt: 0.000001
+  completion: 0.000005
+tags: [fast, low-cost]
+notes: Latest fast/cheap Claude — low latency, good for high-throughput screening.
+homepage: https://www.anthropic.com
+license: proprietary
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

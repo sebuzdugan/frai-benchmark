@@ -1,0 +1,13 @@
+id: openai/o4-mini
+display_name: o4-mini
+provider: openrouter
+route: openrouter_chat
+pricing:
+  prompt: 0.0000011
+  completion: 0.0000044
+tags: [reasoning, low-cost]
+notes: OpenAI's small reasoning model — strong on structured compliance/classification tasks at low cost.
+homepage: https://openai.com
+license: proprietary
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"

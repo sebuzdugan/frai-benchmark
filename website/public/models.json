@@ -195,6 +195,26 @@
     "_source_path": "models/azure/mistral-large-3.yaml"
   },
   {
+    "name": "anthropic/claude-haiku-4.5",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Claude Haiku 4.5",
+    "pricing": {
+      "prompt": 1e-06,
+      "completion": 5e-06
+    },
+    "notes": "Latest fast/cheap Claude \u2014 low latency, good for high-throughput screening.",
+    "tags": [
+      "fast",
+      "low-cost"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": "https://www.anthropic.com",
+    "license": "proprietary",
+    "_source_path": "models/openrouter/anthropic-claude-haiku-4.5.yaml"
+  },
+  {
     "name": "anthropic/claude-opus-4.7",
     "route": "openrouter_chat",
     "provider": "openrouter",
@@ -213,6 +233,26 @@
     "homepage": "https://www.anthropic.com",
     "license": "proprietary",
     "_source_path": "models/openrouter/anthropic-claude-opus-4.7.yaml"
+  },
+  {
+    "name": "anthropic/claude-sonnet-4.6",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Claude Sonnet 4.6",
+    "pricing": {
+      "prompt": 3e-06,
+      "completion": 1.5e-05
+    },
+    "notes": "Anthropic's current workhorse model \u2014 strong balance of speed, cost, and quality.",
+    "tags": [
+      "frontier",
+      "reasoning"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": "https://www.anthropic.com/news/claude-sonnet-4-6",
+    "license": "proprietary",
+    "_source_path": "models/openrouter/anthropic-claude-sonnet-4.6.yaml"
   },
   {
     "name": "arcee-ai/trinity-large-thinking",
@@ -255,6 +295,26 @@
     "_source_path": "models/openrouter/google-gemma-4-31b-it-free.yaml"
   },
   {
+    "name": "meta-llama/llama-3.3-70b-instruct",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "Llama 3.3 70B Instruct",
+    "pricing": {
+      "prompt": 2.3e-07,
+      "completion": 4e-07
+    },
+    "notes": "Meta's Llama 3.3 70B \u2014 open-weights reference for RAI benchmarking.",
+    "tags": [
+      "open-weights",
+      "low-cost"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": "https://llama.meta.com",
+    "license": "open-weights",
+    "_source_path": "models/openrouter/meta-llama-llama-3.3-70b-instruct.yaml"
+  },
+  {
     "name": "moonshotai/kimi-k2.6",
     "route": "openrouter_chat",
     "provider": "openrouter",
@@ -273,6 +333,45 @@
     "homepage": "https://openrouter.ai/moonshotai/kimi-k2.6",
     "license": "open-weights",
     "_source_path": "models/openrouter/moonshotai-kimi-k2.6.yaml"
+  },
+  {
+    "name": "openai/gpt-5.2",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "GPT-5.2 (OpenRouter)",
+    "pricing": {
+      "prompt": 2.5e-06,
+      "completion": 1e-05
+    },
+    "notes": "OpenAI GPT-5.2 accessed via OpenRouter (distinct from the Azure-deployed variant also in this registry).",
+    "tags": [
+      "frontier"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": "https://openai.com",
+    "license": "proprietary",
+    "_source_path": "models/openrouter/openai-gpt-5.2.yaml"
+  },
+  {
+    "name": "openai/o4-mini",
+    "route": "openrouter_chat",
+    "provider": "openrouter",
+    "display_name": "o4-mini",
+    "pricing": {
+      "prompt": 1.1e-06,
+      "completion": 4.4e-06
+    },
+    "notes": "OpenAI's small reasoning model \u2014 strong on structured compliance/classification tasks at low cost.",
+    "tags": [
+      "reasoning",
+      "low-cost"
+    ],
+    "submitted_by": "@sebuzdugan",
+    "submission_date": "2026-04-24",
+    "homepage": "https://openai.com",
+    "license": "proprietary",
+    "_source_path": "models/openrouter/openai-o4-mini.yaml"
   },
   {
     "name": "openrouter/elephant-alpha",

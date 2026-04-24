@@ -1,0 +1,13 @@
+id: meta-llama/llama-3.3-70b-instruct
+display_name: Llama 3.3 70B Instruct
+provider: openrouter
+route: openrouter_chat
+pricing:
+  prompt: 0.00000023
+  completion: 0.0000004
+tags: [open-weights, low-cost]
+notes: Meta's Llama 3.3 70B — open-weights reference for RAI benchmarking.
+homepage: https://llama.meta.com
+license: open-weights
+submitted_by: "@sebuzdugan"
+submission_date: "2026-04-24"
